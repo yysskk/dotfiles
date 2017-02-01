@@ -1,365 +1,300 @@
+set encoding=utf-8
+scriptencoding utf-8
 
-"--------------------基本設定--------------------"
-	scriptencoding utf-8
+" 文字コード
+set fileencoding=utf-8 " 保存時の文字コード
+set fileencodings=ucs-boms,utf-8,euc-jp,cp932 " 読み込み時の文字コードの自動判別. 左側が優先される
+set fileformats=unix,dos,mac " 改行コードの自動判別. 左側が優先される
+set ambiwidth=double " □や○文字が崩れる問題を解決
 
-"--------------------NeoBundle--------------------"
-	if 0 | endif
-        	if has('vim_starting')
-                		if &compatible
-                                		 set nocompatible               " Be iMproved
-                                                 		endif
+" タブインデント
+set expandtab " タブ入力を複数の空白入力に置き換える
+set tabstop=4 " 画面上でタブ文字が占める幅
+set softtabstop=4 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
+set autoindent " 改行時に前の行のインデントを継続する
+set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
+set shiftwidth=4 " smartindentで増減する幅
 
-		" Required:
-                		set runtimepath+=~/.vim/bundle/neobundle.vim/
-                                	endif
+" 文字列検索
+set incsearch " インクリメンタルサーチ. １文字入力毎に検索を行う
+set ignorecase " 検索パターンに大文字小文字を区別しない
+set smartcase " 検索パターンに大文字を含んでいたら大文字小文字を区別する
+set hlsearch " 検索結果をハイライト
 
-	" Required:
-        	call neobundle#begin(expand('~/.vim/bundle/'))
-                	" Required:
-                        	NeoBundleFetch 'Shougo/neobundle.vim'
+" ESCキー2度押しでハイライトの切り替え
+nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 
-	" My Bundles here:
-        	"after install, turn shell ~/.vim/bundle/vimproc, (n,g)make-f your_machines_makefile
-                	NeoBundle 'Shougo/vimproc', {
-                        	  \ 'build' : {
-                                  	    \ 'windows' : 'make -f make_mingw32.mak',
-                                            	    \ 'cygwin' : 'make -f make_cygwin.mak',
-                                                    	    \ 'mac' : 'make -f make_mac.mak',
-                                                            	    \ 'unix' : 'make -f make_unix.mak',
-                                                                    	  \ },
-                                                                          	  \ }
-                                                                                  	" コード補完
-                                                                                        	NeoBundle 'Shougo/neocomplete'
-                                                                                                	NeoBundle 'marcus/rsense'
-                                                                                                        	NeoBundle 'supermomonga/neocomplete-rsense.vim'
-                                                                                                                		let g:rsenseHome = '/usr/local/lib/rsense-0.3'
-                                                                                                                                		let g:rsenseUseOmniFunc = 1
-                                                                                                                                                	NeoBundle 'Shougo/neosnippet'
-                                                                                                                                                        	NeoBundle 'Shougo/neosnippet-snippets'
-                                                                                                                                                                	NeoBundle 'scrooloose/syntastic'
-                                                                                                                                                                        		set statusline+=%#warningmsg#
-                                                                                                                                                                                        		set statusline+=%{SyntasticStatuslineFlag()}
-                                                                                                                                                                                                        		set statusline+=%*
+" カーソル
+set whichwrap=b,s,h,l,<,>,[,],~ " カーソルの左右移動で行末から次の行の行頭への移動が可能になる
+set number " 行番号を表示
+set cursorline " カーソルラインをハイライト
 
-		let g:syntastic_always_populate_loc_list = 1
-                		let g:syntastic_enable_signs = 1
-                                		let g:syntastic_auto_loc_list = 1
-                                                		let g:syntastic_check_on_open = 1
-                                                                		let g:syntastic_check_on_wq = 0
-                                                                                	NeoBundle 'Yggdroot/indentLine.git'
-                                                                                        	NeoBundle 'Align'
-                                                                                                	NeoBundle 'tomasr/molokai'
-                                                                                                        	NeoBundle 'jaxbot/browserlink.vim.git'
-                                                                                                                	NeoBundle 'davidhalter/jedi-vim'
-                                                                                                                        		let g:jedi#completions_enabled = 0
-                                                                                                                                        		let g:jedi#auto_vim_configuration = 0
-                                                                                                                                                        		let g:jedi#show_call_signatures = 0
-                                                                                                                                                                        		let g:pymode_rope = 0
-                                                                                                                                                                                        		autocmd FileType python setlocal completeopt-=preview
-                                                                                                                                                                                                        	NeoBundle 'mattn/emmet-vim'
-                                                                                                                                                                                                                		autocmd FileType html imap <buffer><expr><tab>
-                                                                                                                                                                                                                                				\ emmet#isExpandable() ? "\<plug>(emmet-expand-abbr)" :
-                                                                                                                                                                                                                                                                				\ "\<tab>"
-                                                                                                                                                                                                                                                                                                		autocmd FileType css imap <buffer><expr><tab>
-                                                                                                                                                                                                                                                                                                                				\ emmet#isExpandable() ? "\<plug>(emmet-expand-abbr)" :
-                                                                                                                                                                                                                                                                                                                                                				\ "\<tab>"
-                                                                                                                                                                                                                                                                                                                                                                                		autocmd FileType php imap <buffer><expr><tab>
-                                                                                                                                                                                                                                                                                                                                                                                                				\ emmet#isExpandable() ? "\<plug>(emmet-expand-abbr)" :
-                                                                                                                                                                                                                                                                                                                                                                                                                                				\ "\<tab>"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                	" Markdow setting
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        	" required:
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                	" gem install redcarpet pygments.rb
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        	" npm -g install instant-markdown-d
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                	NeoBundle 'Markdown'
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        	NeoBundle 'suan/vim-instant-markdown'
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                	" ruby
+" 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
+nnoremap j gj
+nnoremap k gk
+nnoremap <down> gj
+nnoremap <up> gk
 
-	" Required:
-        	call neobundle#end()
-                	filetype plugin indent on
-                        	NeoBundleCheck
+" バックスペースキーの有効化
+set backspace=indent,eol,start
 
-"--------------------neosnippet--------------------"
-	" <TAB>: completion.
-        	" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-                	inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
-                        	"tabで補完候補の選択を行う
-                                	"inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<TAB>"
-                                        	"inoremap <expr><S-TAB> pumvisible() ? "\<Up>" : "\<S-TAB>"
+" カッコ・タグジャンプ
+set showmatch " 括弧の対応関係を一瞬表示する
+source $VIMRUNTIME/macros/matchit.vim " Vimの「%」を拡張する
 
-	" Plugin key-mappings.
-        	imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-                	smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" コマンド補完
+set wildmenu " コマンドモードの補完
+set history=5000 " 保存するコマンド履歴の数
 
-	" SuperTab like snippets behavior.
-        	" imap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-                	imap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-                        	smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" マウスの有効化
+if has('mouse')
+    set mouse=a
+    if has('mouse_sgr')
+        set ttymouse=sgr
+    elseif v:version > 703 || v:version is 703 && has('patch632')
+        set ttymouse=sgr
+    else
+        set ttymouse=xterm2
+    endif
+endif
 
-	" 前回行われた補完をキャンセルします
-        	inoremap <expr><C-g> neocomplete#undo_completion()
-                	" 補完候補のなかから、共通する部分を補完します
-                        	inoremap <expr><C-l> neocomplete#complete_common_string()
-                                	" 改行で補完ウィンドウを閉じる
-                                        	inoremap <expr><CR> neocomplete#smart_close_popup() . "\<CR>"
+" ペースト設定
+if &term =~ "xterm"
+    let &t_SI .= "\e[?2004h"
+    let &t_EI .= "\e[?2004l"
+    let &pastetoggle = "\e[201~"
 
-	" For snippet_complete marker.
-        	if has('conceal')
-                		set conceallevel=2 concealcursor=i
-                                	endif
+    function XTermPasteBegin(ret)
+        set paste
+        return a:ret
+    endfunction
 
-	" neocompete
-        	" 補完ウィンドウの設定
-                	set completeopt=menuone
+    inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
+endif
 
-	let g:acp_enableAtStartup = 0
-        	let g:neocomplete#enable_at_startup = 1
-                	" 大文字が入力されるまで大文字小文字の区別を無視する
-                        	let g:neocomplete#enable_smart_case = 1
-                                	" _(アンダースコア)区切りの補完を有効化
-                                        	let g:neocomplete_enable_underbar_completion = 1
-                                                	let g:neocomplete_enable_camel_case_completion  =  1
-                                                        	" ポップアップメニューで表示される候補の数
-                                                                	let g:neocomplete_max_list = 20
-                                                                        	" シンタックスをキャッシュするときの最小文字長
-                                                                                	let g:neocomplete_min_syntax_length = 2
-                                                                                        	" ディクショナリ定義
-                                                                                                	let g:neocomplete_dictionary_filetype_lists = {
-                                                                                                        		\ 'default' : ''
-                                                                                                                        		\ }
-                                                                                                                                        	 
-                                                                                                                                                 	if !exists('g:neocomplete_keyword_patterns')
-                                                                                                                                                        			let g:neocomplete_keyword_patterns = {}
-                                                                                                                                                                                	endif
+"----------------------------------------------------------
+" NeoBundle
+"----------------------------------------------------------
+if has('vim_starting')
+    " 初回起動時のみruntimepathにNeoBundleのパスを指定する
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
 
-	let g:neocomplete_keyword_patterns['default'] = '\h\w*'
-        	if !exists('g:neocomplete#force_omni_input_patterns')
-                		let g:neocomplete#force_omni_input_patterns = {}
-                                	endif
-                                        	let g:neocomplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
+    " NeoBundleが未インストールであればgit cloneする
+    if !isdirectory(expand("~/.vim/bundle/neobundle.vim/"))
+        echo "install NeoBundle..."
+        :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
+    endif
+endif
 
-"--------------------View設定--------------------"
-	set t_Co=256
+call neobundle#begin(expand('~/.vim/bundle/'))
 
-	"colorscheme desert
-        	colorscheme molokai
-                	"colorscheme zenburn
-                        	
-                                	highlight Normal ctermbg=black ctermfg=grey
-                                        	highlight StatusLine term=none cterm=none ctermfg=black ctermbg=grey
-                                                	"カーソル行の強調"
-                                                        	highlight LineNr ctermfg=white
-                                                                	highlight LineNr ctermbg=black
-                                                                        	set cursorline
+" インストールするVimプラグインを以下に記述
+" NeoBundle自身を管理
+NeoBundleFetch 'Shougo/neobundle.vim'
+" カラースキームmolokai
+NeoBundle 'tomasr/molokai'
+" ステータスラインの表示内容強化
+NeoBundle 'itchyny/lightline.vim'
+" インデントの可視化
+NeoBundle 'Yggdroot/indentLine'
+" 末尾の全角半角空白文字を赤くハイライト
+NeoBundle 'bronson/vim-trailing-whitespace'
+" 構文エラーチェック
+NeoBundle 'scrooloose/syntastic'
+" 多機能セレクタ
+NeoBundle 'ctrlpvim/ctrlp.vim'
+" CtrlPの拡張プラグイン. 関数検索
+NeoBundle 'tacahiroy/ctrlp-funky'
+" CtrlPの拡張プラグイン. コマンド履歴検索
+NeoBundle 'suy/vim-ctrlp-commandline'
+" CtrlPの検索にagを使う
+NeoBundle 'rking/ag.vim'
+" プロジェクトに入ってるESLintを読み込む
+NeoBundle 'pmsorhaindo/syntastic-local-eslint.vim'
 
-	"行数を表示"
-        	set number
+" vimのlua機能が使える時だけ以下のVimプラグインをインストールする
+if has('lua')
+    " コードの自動補完
+    NeoBundle 'Shougo/neocomplete.vim'
+    " スニペットの補完機能
+    NeoBundle "Shougo/neosnippet"
+    " スニペット集
+    NeoBundle 'Shougo/neosnippet-snippets'
+endif
 
-	"インデントラインを設定"
-        	set list lcs=tab:\|\ 
+call neobundle#end()
 
-	" ファイルエンコーディングや文字コードをステータス行に表示する
-        	set laststatus=2 "ステータスラインを常に表示
-                	set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,%l)/%L%8P\ 
+" ファイルタイプ別のVimプラグイン/インデントを有効にする
+filetype plugin indent on
 
-	" 'v'でファイルを開くときは右側に開く。(デフォルトが左側なので入れ替え)
-        	let g:netrw_altv = 1
-                	" 'o'でファイルを開くときは下側に開く。(デフォルトが上側なので入れ替え)
-                        	let g:netrw_alto = 1
-                                	let g:netrw_keepdir = 0
+" 未インストールのVimプラグインがある場合、インストールするかどうかを尋ねてくれるようにする設定
+NeoBundleCheck
 
-	"Enter・・・ファイルを開く | ディレクトリを移動する
-        	"o・・・水平方向で開く（画面分割）
-                	"v・・・垂直方向で開く（画面分割）
-                        	"t・・・新しいタブで表示する
-                                	"p・・・プレビューウィンドウで表示する
-                                        	"-・・・上の階層に移動
-                                                	"u・・・前のディレクトリに戻る
-                                                        	"U・・・戻ったディレクトリにまた戻る
-                                                                	"c・・・開いているバッファ（%a）をカレントディレクトリに変更
-                                                                        	
-                                                                                	" Anywhere SID.
-                                                                                        	function! s:SID_PREFIX()
-                                                                                                	  return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
-                                                                                                          	endfunction
+"----------------------------------------------------------
+" カラースキーム
+"----------------------------------------------------------
+if neobundle#is_installed('molokai')
+    colorscheme molokai " カラースキームにmolokaiを設定する
+endif
 
-	" Set tabline.
-        	function! s:my_tabline()  "{{{
-                	  let s = ''
-                          	  for i in range(1, tabpagenr('$'))
-                                  		let bufnrs = tabpagebuflist(i)
-                                                		let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
-                                                                		let no = i  " display 0-origin tabpagenr.
-                                                                                		let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
-                                                                                                		let title = fnamemodify(bufname(bufnr), ':t')
-                                                                                                                		let title = '[' . title . ']'
-                                                                                                                                		let s .= '%'.i.'T'
-                                                                                                                                                		let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
-                                                                                                                                                                		let s .= no . ':' . title
-                                                                                                                                                                                		let s .= mod
-                                                                                                                                                                                                		let s .= '%#TabLineFill# '
-                                                                                                                                                                                                                	  endfor
-                                                                                                                                                                                                                          	  let s .= '%#TabLineFill#%T%=%#TabLine#'
-                                                                                                                                                                                                                                  	  return s
-                                                                                                                                                                                                                                          	endfunction "}}}
+set t_Co=256 " iTerm2など既に256色環境なら無くても良い
+syntax enable " 構文に色を付ける
 
-	let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
+"----------------------------------------------------------
+" 文字
+"----------------------------------------------------------
+set fileencoding=utf-8 " 保存時の文字コード
+set fileencodings=ucs-boms,utf-8,euc-jp,cp932 " 読み込み時の文字コードの自動判別. 左側が優先される
+set fileformats=unix,dos,mac " 改行コードの自動判別. 左側が優先される
+set ambiwidth=double " □や○文字が崩れる問題を解決
 
-"--------------------Normalモード--------------------"
-	noremap f           za
-        	" noremap F           zA
+"----------------------------------------------------------
+" ステータスライン
+"----------------------------------------------------------
+set laststatus=2 " ステータスラインを常に表示
+set showmode " 現在のモードを表示
+set showcmd " 打ったコマンドをステータスラインの下に表示
+set ruler " ステータスラインの右側にカーソルの位置を表示する
 
-	"カーソルキーで行末／行頭の移動可能に設定。
-        	set whichwrap=b,s,[,],<,>
-                	nnoremap h <Left>
-                        	nnoremap l <Right>
-                                	"l を <Right>に置き換えて、折りたたみを l で開くことができるようにする。
-                                        	if has('folding')
-                                                		nnoremap <expr> l foldlevel(line('.')) ? "\<Right>zo" : "\<Right>"
-                                                                	endif
-                                                                        	
-                                                                                	" 画面の再描画時に検索結果のハイライトを消す
-                                                                                        	noremap <C-L>	   :noh<C-L><CR>
+"----------------------------------------------------------
+" コマンドモード
+"----------------------------------------------------------
+set wildmenu " コマンドモードの補完
+set history=5000 " 保存するコマンド履歴の数
 
-	" 置換
-            noremap S           :%s///g<LEFT><LEFT><LEFT>
+"----------------------------------------------------------
+" タブ・インデント
+"----------------------------------------------------------
+set expandtab " タブ入力を複数の空白入力に置き換える
+set tabstop=4 " 画面上でタブ文字が占める幅
+set softtabstop=4 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
+set autoindent " 改行時に前の行のインデントを継続する
+set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
+set shiftwidth=4 " smartindentで増減する幅
 
-	" タブの移動をemacs風に
-        	" nnoremap <C-b>  gT
-                	" nnoremap <C-f>  gt
-                        	" TODO リーダーキーバインドを考える
-                                	let mapleader = "\<Space>"
-                                        	nnoremap <Leader>w :w<CR>
+"----------------------------------------------------------
+" 文字列検索
+"----------------------------------------------------------
+set incsearch " インクリメンタルサーチ. １文字入力毎に検索を行う
+set ignorecase " 検索パターンに大文字小文字を区別しない
+set smartcase " 検索パターンに大文字を含んでいたら大文字小文字を区別する
+set hlsearch " 検索結果をハイライト
 
-"--------------------Insertモード--------------------"
-	inoremap <C-A>     <HOME>
-        	inoremap <C-E>     <END>
-                	inoremap <C-D>     <DEL>
-                        	inoremap <C-H>     <BS>
-                                	inoremap <C-B>     <LEFT>
-                                        	inoremap <C-F>     <RIGHt>
-                                                	inoremap <C-N>	   <DOWN>
-                                                        	inoremap <C-P>	   <UP>
+" ESCキー2度押しでハイライトの切り替え
+nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 
-	"非補完時は行移動をj,kと同じ動作にして補完中は候補選択
-        	"inoremap <silent> <expr> <C-p>  pumvisible() ? "\<C-p>" : "<C-r>=MyExecExCommand('normal k')<CR>"
-                	"inoremap <silent> <expr> <C-n>  pumvisible() ? "\<C-n>" : "<C-r>=MyExecExCommand('normal j')<CR>"
-                        	"inoremap <silent> <expr> <Up>   pumvisible() ? "\<C-p>" : "<C-r>=MyExecExCommand('normal k')<CR>"
-                                	"inoremap <silent> <expr> <Down> pumvisible() ? "\<C-n>" : "<C-r>=MyExecExCommand('normal j')<CR>"
+"----------------------------------------------------------
+" カーソル
+"----------------------------------------------------------
+set whichwrap=b,s,h,l,<,>,[,],~ " カーソルの左右移動で行末から次の行の行頭への移動が可能になる
+set number " 行番号を表示
+set cursorline " カーソルラインをハイライト
 
-	"BSで削除できるものを指定する
-        	" indent  : 行頭の空白
-                	" eol     : 改行
-                        	" start   : 挿入モード開始位置より手前の文字
-                                	set backspace=indent,eol,start
+" 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
+nnoremap j gj
+nnoremap k gk
+nnoremap <down> gj
+nnoremap <up> gk
 
-"--------------------commandモード--------------------"
-	cnoremap <C-F>	   <RIGHT>
-        	cnoremap <C-B>	   <LEFT>
-                	cnoremap <C-A>	   <HOME>
-                        	cnoremap <C-E>     <END>
-                                	cnoremap <C-D>	   <DEL>
-                                        	cnoremap <C-H>	   <BS>
-                                                	cnoremap <C-K>     <ESC>lv$hda
+" バックスペースキーの有効化
+set backspace=indent,eol,start
 
-"--------------------visualモード--------------------"
-	vnoremap S	:s///g<LEFT><LEFT><LEFT>
-        	vnoremap =	:Align 
-                	vnoremap J	gJ 
-                        	
-                                	" カーソル位置の単語をヤンクした単語に置換
-                                        	vnoremap <silent> cy   c<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
+"----------------------------------------------------------
+" カッコ・タグの対応
+"----------------------------------------------------------
+set showmatch " 括弧の対応関係を一瞬表示する
+source $VIMRUNTIME/macros/matchit.vim " Vimの「%」を拡張する
 
-"--------------------折り畳み--------------------"
-	"インデントで折り畳みを自動作成
-        	set foldmethod=indent 
-                	"ウィンドウの端に確保される折り畳みを表示
-                        	set foldcolumn=3 
-                                	"すべての折り畳みを閉じる
-                                        	set foldlevel=0 
-                                                	" どのレベルの深さまで折りたたむか
-                                                        	set foldnestmax=5
+"----------------------------------------------------------
+" マウスでカーソル移動とスクロール
+"----------------------------------------------------------
+if has('mouse')
+    set mouse=a
+    if has('mouse_sgr')
+        set ttymouse=sgr
+    elseif v:version > 703 || v:version is 703 && has('patch632')
+        set ttymouse=sgr
+    else
+        set ttymouse=xterm2
+    endif
+endif
 
-"--------------------encoding--------------------"
-	set termencoding	=utf-8
-        	set encoding		=utf-8
-                	set fileformats		=unix,dos,mac
-                        	set fileencoding	=utf-8
-                                	set fileencodings	=ucs-bom,utf-8,shift-jis,iso-2022-jp-3,iso-2022-jp-2,euc-jisx0213,euc-jp,cp932
+"----------------------------------------------------------
+" クリップボードからのペースト
+"----------------------------------------------------------
+" 挿入モードでクリップボードからペーストする時に自動でインデントさせないようにする
+if &term =~ "xterm"
+    let &t_SI .= "\e[?2004h"
+    let &t_EI .= "\e[?2004l"
+    let &pastetoggle = "\e[201~"
 
-	if &encoding == 'utf-8'
-        		set ambiwidth=double
-                        	endif
+    function XTermPasteBegin(ret)
+        set paste
+        return a:ret
+    endfunction
 
-"--------------------検索設定--------------------"
-	set ignorecase "大文字/小文字の区別なく検索する
-        	set smartcase "検索文字列に大文字が含まれている場合は区別して検索する
-                	set wrapscan "検索時に最後まで行ったら最初に戻る
+    inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
+endif
 
-"-------------------- その他 --------------------"
-	" 現在のディレクトリに自動的に移動する
-        	set autochdir
+"----------------------------------------------------------
+" neocomplete・neosnippetの設定
+"----------------------------------------------------------
+if neobundle#is_installed('neocomplete.vim')
+    " Vim起動時にneocompleteを有効にする
+    let g:neocomplete#enable_at_startup = 1
+    " smartcase有効化. 大文字が入力されるまで大文字小文字の区別を無視する
+    let g:neocomplete#enable_smart_case = 1
+    " 3文字以上の単語に対して補完を有効にする
+    let g:neocomplete#min_keyword_length = 3
+    " 区切り文字まで補完する
+    let g:neocomplete#enable_auto_delimiter = 1
+    " 1文字目の入力から補完のポップアップを表示
+    let g:neocomplete#auto_completion_start_length = 1
+    " バックスペースで補完のポップアップを閉じる
+    inoremap <expr><BS> neocomplete#smart_close_popup()."<C-h>"
 
-	" マウスの設定
-        	set mouse=a
+    " エンターキーで補完候補の確定. スニペットの展開もエンターキーで確定
+    imap <expr><CR> neosnippet#expandable() ? "<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "<C-y>" : "<CR>"
+    " タブキーで補完候補の選択. スニペット内のジャンプもタブキーでジャンプ
+    imap <expr><TAB> pumvisible() ? "<C-n>" : neosnippet#jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
+endif
 
-	" Use Vim default instead of 100% vi compativility
-        	" viとの互換性を無効にする(INSERT中にカーソルキーが有効になる)
-                	set nocompatible
+"----------------------------------------------------------
+" Syntastic
+"----------------------------------------------------------
+" 構文エラー行に「>>」を表示
+let g:syntastic_enable_signs = 1
+" 他のVimプラグインと競合するのを防ぐ
+let g:syntastic_always_populate_loc_list = 1
+" 構文エラーリストを非表示
+let g:syntastic_auto_loc_list = 0
+" ファイルを開いた時に構文エラーチェックを実行する
+let g:syntastic_check_on_open = 1
+" 「:wq」で終了する時も構文エラーチェックする
+let g:syntastic_check_on_wq = 1
 
-	"日本語の全角文字を直す
-        	set ambiwidth=double
+" Javascript用. 構文エラーチェックにESLintを使用
+let g:syntastic_javascript_checkers=['eslint']
+" Javascript以外は構文エラーチェックをしない
+let g:syntastic_mode_map = { 'mode': 'passive',
+                           \ 'active_filetypes': ['javascript'],
+                           \ 'passive_filetypes': [] }
 
-	" TABの幅を指定
-        	" Tabを画面上の見た目で何文字分に展開するかを指定
-                	set tabstop		=2
-                        	" vimが自動で挿入する量
-                                	set shiftwidth	=2
-                                        	" キーボードで入力したTabで挿入される空白の量
-                                                	set softtabstop =2
+"----------------------------------------------------------
+" CtrlP
+"----------------------------------------------------------
+let g:ctrlp_match_window = 'order:ttb,min:20,max:20,results:100' " マッチウインドウの設定. 「下部に表示, 大きさ20行で固定, 検索結果100件」
+let g:ctrlp_show_hidden = 1 " .(ドット)から始まるファイルも検索対象にする
+let g:ctrlp_types = ['fil'] "ファイル検索のみ使用
+let g:ctrlp_extensions = ['funky', 'commandline'] " CtrlPの拡張として「funky」と「commandline」を使用
 
-	" vim の自動文章折り返し機能を回避"
-        	set formatoptions=q
+" CtrlPCommandLineの有効化
+command! CtrlPCommandLine call ctrlp#init(ctrlp#commandline#id())
 
-	" 自動でインデント
-        	set autoindent
+" CtrlPFunkyの絞り込み検索設定
+let g:ctrlp_funky_matchtype = 'path'
 
-	" vimのヤンクとOSのクリップボードを共有する
-        	set clipboard=unnamed,autoselect
-
-	" Don't keep a backup file
-        	set nobackup
-
-	" 閉じ括弧が入力されたとき対応する括弧を表示
-        	set showmatch
-
-	"インクリメンタル検索on"
-        	set incsearch
-
-	"スクロール開始行の設定 ex.5 => 下上5行目からスクロール開始"
-        	set scrolloff=5
-
-	" vimのビープ音を殺す
-        	set vb t_vb=
-
-	" scrollが遅いことを解決できる？
-        	set lazyredraw
-
-	" swp files
-        	" set directory=~/.vim/swp
-                	set noswapfile
-
-	" au BufRead,BufNewFile *.txt set syntax=desert.vim
-        	au BufRead,BufNewFile *.txt set syntax=hybrid.vim
-                	au BufRead,BufNewFile *.jinja2 set syntax=htmljinja.vim
-
-	"カラー設定 最後に設定する
-        	syntax on
-
-Powerline
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
-set laststatus=2
-set showtabline=2
-set noshowmode
+if executable('ag')
+  let g:ctrlp_use_caching=0 " CtrlPのキャッシュを使わない
+  let g:ctrlp_user_command='ag %s -i --hidden -g ""' " 「ag」の検索設定
+endif

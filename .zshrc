@@ -5,13 +5,13 @@ cat << EOS
 
 welcome to ...
 
-##  #  ####   #####  #### ##  # 
-##  # ### #      ## ##    ##  # 
-##  # ##        ##  ###   ##  # 
-##  # ##       ###   ###  ##### 
-##  # ##       ##     ### ##  # 
-##  # ###     ##       ## ##  # 
- ###   ####   ##### ####  ##  # 
+   #####  #### ##  # 
+      ## ##    ##  # 
+     ##  ###   ##  # 
+    ###   ###  ##### 
+    ##     ### ##  # 
+   ##       ## ##  # 
+   ##### ####  ##  # 
 
 =============================================
 
@@ -392,7 +392,6 @@ EOS
 		alias lgtm='sh ~/Dropbox/code/shellscript/lgtm.sh/lgtm.sh -m | pbcopy'
 		alias playground='open ~/Dropbox/code/XcodePlayground/MyPlayground.playground'
 
-		alias sl="/Users/ucucAir2/Dropbox/code/script/sl/sl"
 		alias jsc="/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc"
 
 		setopt complete_aliases # aliased ls needs if file/dir completions work
@@ -403,8 +402,8 @@ EOS
 		alias javac='javac -J-Dfile.encoding=UTF-8'
 
 		# rmコマンドでゴミ箱に送る
-		alias rm='trash'
-    # alias rm='mv -i ~/.Trash' # 他のOS用
+		# alias rm='trash'
+     		# alias rm='mv -i ~/.Trash' # 他のOS用
 
 		# Dropbox以下の容量を調べるときに使うコマンド
 		# sudo du -hxd 1 ~/Dropbox/    
