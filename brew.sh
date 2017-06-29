@@ -19,6 +19,7 @@ brew install vim
 brew install wget
 brew install zopfli
 brew install zsh
+brew install git-lfs
 
 brew cleanup
 
