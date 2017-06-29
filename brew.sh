@@ -10,6 +10,8 @@ brew install docker-machine
 brew install ffmpeg
 brew install ffmpeg --with-libvpx
 brew install fontforge
+brew install gibo
+brew install git-lfs
 brew install git
 brew install go
 brew install hugo
@@ -19,7 +21,6 @@ brew install vim
 brew install wget
 brew install zopfli
 brew install zsh
-brew install git-lfs
 
 brew cleanup
 
