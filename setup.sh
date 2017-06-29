@@ -31,4 +31,13 @@ ln -s ~/dotfiles/.functions ~/.functions
 ln -s ~/dotfiles/.gemrc ~/.gemrc
 ln -s ~/dotfiles/.vimrc ~/.vimrc
 ln -s ~/dotfiles/.gitconfig ~/.gitconfig
-ln -s ~/dotfiles/.editorconfig ~/.editorconfig
+ln -s ~/dotfiles/.editorconfig ~/.editorconfiga
+
+# seup prezto
+git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+
+# seup ricty font
+brew tap sanemat/font
+brew reinstall --powerline --vim-powerline ricty
+cp -f /usr/local/Cellar/ricty/3.2.4/share/fonts/Ricty*.ttf ~/Library/Fonts/
+fc-cache -vf

@@ -1,9 +1,10 @@
 [user]
 	name = yysskk
-    email = yusuke.0213@gmail.com
+	email = yusuke.0213@gmail.com
 [core]
   deltaBaseCacheLimit = 1G
   editor = vim
+	precomposeunicode = true
 [mergetool]
   keepBackup = true
 [filter "media"]
@@ -14,6 +15,9 @@
   show = diff-so-fancy | less --tabs=4 -RFX
 [color]
   ui = always
+	diff = auto
+	status = auto
+	branch = auto
 [color "diff"]
   meta = yellow bold
   commit = green bold
@@ -38,3 +42,6 @@
   smudge = git-lfs smudge -- %f
   required = true
   clean = git-lfs clean -- %f
+	process = git-lfs filter-process
+[push]
+	default = simple
