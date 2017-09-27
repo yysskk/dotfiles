@@ -21,6 +21,12 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+# nodebrew
 export PATH=$HOME/.nodebrew/current/bin:$PATH
-export PATH=$HOME/cmdshelf/.build/release:$PATH
 
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH" 
+eval "$(rbenv init - zsh)"
+
+# cmdshelf
+export PATH=$HOME/cmdshelf/.build/release:$PATH
