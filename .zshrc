@@ -32,5 +32,5 @@ eval "$(rbenv init - zsh)"
 export PATH=$HOME/cmdshelf/.build/release:$PATH
 
 # Flutter
-export PATH=$HOME/.flutter/bin:$PATH
+export PATH=$HOME/flutter/bin:$PATH
 
